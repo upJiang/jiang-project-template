@@ -1,36 +1,25 @@
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <a-config-provider :locale="zhCN">
+    <router-view v-if="isRouterAlive" />
+  </a-config-provider>
 </template>
+
 <script setup lang="ts">
-import HelloWorld from "./components/HelloWorld.vue";
+import "dayjs/locale/zh-cn";
+
+import zhCN from "ant-design-vue/es/locale/zh_CN";
+import dayjs from "dayjs"; // ant-design-vue自带的
+import { nextTick, provide, ref } from "vue";
+
+// 提供一个局部组件刷新
+const isRouterAlive = ref(true);
+const reload = () => {
+  isRouterAlive.value = false;
+  nextTick(() => {
+    isRouterAlive.value = true;
+  });
+};
+provide("reload", reload);
+
+dayjs.locale("zhCN");
 </script>
-
-<style scoped>
-.logo {
-  will-change: filter;
-
-  display: flex;
-  align-self: start;
-
-  height: 6em;
-  padding: 1.5em;
-
-  transition: filter 300ms;
-}
-
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>

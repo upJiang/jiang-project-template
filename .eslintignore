@@ -13,3 +13,4 @@ dist
 /bin
 Dockerfile
 /types
+/materials

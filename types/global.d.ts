@@ -32,14 +32,15 @@ declare global {
   declare interface WheelEvent {
     path?: EventTarget[];
   }
-  interface ImportMetaEnv extends ViteEnv {
-    __: unknown;
+
+  interface ImportMeta {
+    readonly env: ImportMetaEnv;
+    glob: any;
   }
 
-  declare interface ViteEnv {
-    VITE_OPEN_PROXY?: Boolean;
-    VITE_USE_MOCK: Boolean;
-    VITE_USE_COMPRESS: Boolean;
+  interface ImportMetaEnv {
+    NODE_ENV: string;
+    VITE_MAIN_HOST: string;
   }
 
   declare function parseInt(s: string | number, radix?: number): number;
