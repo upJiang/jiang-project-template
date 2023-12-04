@@ -1,32 +1,10 @@
 module.exports = {
-  root: true,
-  extends: ["stylelint-config-standard", "stylelint-config-clean-order"],
-  plugins: ["stylelint-prettier"],
-  customSyntax: "postcss-html",
-  overrides: [
-    {
-      files: ["**/*.(css|html|vue)"],
-      customSyntax: "postcss-html",
-    },
-    {
-      files: ["*.less", "**/*.less"],
-      customSyntax: "postcss-less",
-      extends: [
-        "stylelint-config-standard",
-        "stylelint-config-recommended-vue",
-      ],
-    },
-    {
-      files: ["*.scss", "**/*.scss"],
-      customSyntax: "postcss-scss",
-      extends: [
-        "stylelint-config-standard-scss",
-        "stylelint-config-recommended-vue/scss",
-      ],
-      rule: {
-        "scss/percent-placeholder-pattern": null,
-      },
-    },
+  processors: [],
+  extends: [
+    "stylelint-config-standard",
+    "stylelint-prettier/recommended",
+    "stylelint-config-prettier",
+    "stylelint-config-clean-order",
   ],
   rules: {
     "prettier/prettier": true,
@@ -41,5 +19,4 @@ module.exports = {
     "font-family-no-missing-generic-family-keyword": null,
     "declaration-block-no-shorthand-property-overrides": null,
   },
-  ignoreFiles: ["**/*.js", "**/*.jsx", "**/*.tsx", "**/*.ts"],
 };

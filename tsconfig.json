@@ -19,7 +19,7 @@
     "noUnusedParameters": true,
     "experimentalDecorators": true,
     "lib": ["dom", "esnext"],
-    "noImplicitAny": false,
+    "noImplicitAny": false, // 是否允许any
     "skipLibCheck": true,
     "types": [],
     "removeComments": true,
