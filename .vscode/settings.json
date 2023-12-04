@@ -6,7 +6,13 @@
     "source.fixAll.stylelint": true
   },
   "stylelint.validate": ["css", "less", "scss", "vue"],
+  "[less]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }

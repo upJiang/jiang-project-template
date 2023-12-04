@@ -25,12 +25,11 @@
     "@typescript-eslint/eslint-plugin": "^6.13.1",
     "@typescript-eslint/parser": "^6.13.1",
     "@vitejs/plugin-vue": "^4.5.0",
-    "add": "^2.0.6",
     "eslint": "^8.54.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-define-config": "^2.0.0",
     "eslint-plugin-import": "^2.29.0",
-    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-vue": "^9.18.1",
     "husky": "^8.0.3",
@@ -39,16 +38,12 @@
     "lint-staged": "^15.1.0",
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
-    "postcss-html": "^1.5.0",
-    "postcss-less": "^6.0.0",
-    "prettier": "^3.1.0",
-    "stylelint": "^15.11.0",
-    "stylelint-config-clean-order": "^5.2.0",
-    "stylelint-config-recommended": "^13.0.0",
-    "stylelint-config-recommended-vue": "^1.5.0",
-    "stylelint-config-standard": "^34.0.0",
-    "stylelint-config-standard-scss": "^11.1.0",
-    "stylelint-prettier": "^4.1.0",
+    "prettier": "^2.7.1",
+    "stylelint": "^13.2.1",
+    "stylelint-config-clean-order": "^2.1.0",
+    "stylelint-config-prettier": "^8.0.1",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-prettier": "^1.1.2",
     "typescript": "^5.2.2",
     "unplugin-vue-components": "^0.25.2",
     "vite": "^5.0.0",
@@ -57,27 +52,10 @@
     "yarn": "^1.22.21"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "{!(package)*.json,*.code-snippets,.!(browserslist)*rc}": [
-      "prettier --write--parser json"
-    ],
-    "package.json": [
-      "prettier --write"
-    ],
-    "*.vue": [
+    "*.{js,jsx,ts,tsx,vue}": [
       "prettier --write",
-      "eslint --fix",
-      "stylelint --fix"
+      "eslint --fix"
     ],
-    "*.{scss,less,styl,html}": [
-      "stylelint --fix",
-      "prettier --write"
-    ],
-    "*.md": [
-      "prettier --write"
-    ]
+    "*.{css,less,scss}": "stylelint --fix"
   }
 }

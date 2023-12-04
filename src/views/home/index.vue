@@ -15,4 +15,17 @@ const { model } = presenter;
 </script>
 <style lang="less" scoped>
 @import url("./index.less");
+
+.testStyleLint {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  max-width: 100vw;
+  max-height: 100vh;
+  margin-left: 32px;
+
+  white-space: nowrap;
+}
 </style>

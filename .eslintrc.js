@@ -30,6 +30,7 @@ module.exports = {
     "eslint-plugin-simple-import-sort", // 自动调整 import 顺序
   ],
   rules: {
+    "prettier/prettier": "error",
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "no-multi-spaces": ["error", { ignoreEOLComments: true }],
