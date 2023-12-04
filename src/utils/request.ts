@@ -1,4 +1,3 @@
-import { notification } from "ant-design-vue";
 import axios, {
   AxiosError,
   AxiosRequestConfig,
@@ -49,10 +48,10 @@ instance.interceptors.response.use(
       !(res.config as AxiosRequestConfig & { skipErrorHandler?: boolean })
         .skipErrorHandler
     ) {
-      notification.error({
-        message: "异常",
-        description: res.data.msg || res.data.message,
-      });
+      // notification.error({
+      //   message: "异常",
+      //   description: res.data.msg || res.data.message,
+      // });
       return Promise.reject(res.data);
     }
     return Promise.resolve(res.data);
@@ -62,22 +61,22 @@ instance.interceptors.response.use(
       error.config as AxiosRequestConfig & { skipErrorHandler?: boolean }
     ).skipErrorHandler;
     if (error.response?.status === 401 && !skipErrorHandler) {
-      notification.error({
-        message: "登录信息过期",
-        description: "请重新登录",
-      });
+      // notification.error({
+      //   message: "登录信息过期",
+      //   description: "请重新登录",
+      // });
       delCookie("access_token");
       // 下面自行处理未登录情况
       return;
     }
     if (!skipErrorHandler) {
-      notification.error({
-        message: "异常",
-        description:
-          error.response?.data?.message ||
-          error.response?.data?.msg ||
-          error.message,
-      });
+      // notification.error({
+      //   message: "异常",
+      //   description:
+      //     error.response?.data?.message ||
+      //     error.response?.data?.msg ||
+      //     error.message,
+      // });
     }
     return Promise.reject(error);
   },

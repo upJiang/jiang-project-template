@@ -1,4 +1,4 @@
-import { message } from "ant-design-vue";
+import { showToast } from "vant";
 
 import { useModel } from "./model";
 import Service from "./service";
@@ -8,7 +8,7 @@ export const usePresenter = () => {
   const service = new Service(model);
 
   const handleClick = () => {
-    message.success("测试");
+    showToast("提示内容");
     //  测试 pinia
     service.saveCache();
     // 测试 mock

@@ -45,20 +45,31 @@ resolve: {
 
 直接看 `src/router`，使用 `import.meta.glob` 自动导入各模块路由，添加了进度条
 
-## 配置 ant-design-vue
+## 配置 vant
 
-使用自动导入，无需在 main.ts 引入
+[文档地址](https://vant-ui.github.io/vant/#/zh-CN/home)
+
+使用自动导入，无需在 `main.ts` 引入
 
 ```
 // vite.config.ts
+import { VantResolver } from "unplugin-vue-components/resolvers";
+import Components from "unplugin-vue-components/vite";
+
 Components({
     resolvers: [
-    AntDesignVueResolver({
-        importStyle: false, // css in js
-     }),
+    VantResolver(),
     ],
 }),
 ```
+
+在 `main.ts` 中引入样式文件解决 toast 那些函数式组件的样式问题
+
+```
+import "vant/lib/index.css";
+```
+
+## 配置响应式
 
 ## 生成区块文件
 
@@ -107,6 +118,6 @@ testStore.testCache = "测试";
 
 [参考我的文章](https://juejin.cn/post/7000343511195189279)
 
-目前该模板已配置：项目规范、ant-design-vue、axios、pinia、mock
+目前该模板已配置：项目规范、vant、axios、pinia、mock
 
 已足以满足开发需求，后续需要什么自行添加

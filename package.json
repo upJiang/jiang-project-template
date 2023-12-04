@@ -11,10 +11,10 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "ant-design-vue": "^4.0.7",
     "axios": "^1.6.2",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.0",
+    "vant": "^4.8.0",
     "vue": "^3.3.8",
     "vue-router": "^4.2.5"
   },
