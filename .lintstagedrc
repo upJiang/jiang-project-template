@@ -1,4 +1,0 @@
-{
-  "*.{vue,ts,js,jsx}": "eslint",
-  "*.{vue,less,scss,css}": ["stylelint"]
-}

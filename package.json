@@ -38,6 +38,7 @@
     "lint-staged": "^15.1.0",
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
+    "postcss-px-to-viewport": "^1.1.1",
     "prettier": "^2.7.1",
     "stylelint": "^13.2.1",
     "stylelint-config-clean-order": "^2.1.0",
@@ -52,27 +53,10 @@
     "yarn": "^1.22.21"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "{!(package)*.json,*.code-snippets,.!(browserslist)*rc}": [
-      "prettier --write--parser json"
-    ],
-    "package.json": [
-      "prettier --write"
-    ],
-    "*.vue": [
+    "*.{js,jsx,ts,tsx,vue}": [
       "prettier --write",
-      "eslint --fix",
-      "stylelint --fix"
+      "eslint --fix"
     ],
-    "*.{scss,less,styl,html}": [
-      "stylelint --fix",
-      "prettier --write"
-    ],
-    "*.md": [
-      "prettier --write"
-    ]
+    "*.{css,less,scss}": "stylelint --fix"
   }
 }

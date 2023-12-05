@@ -1,6 +1,6 @@
 <template>
   <van-cell title="模板" :value="model.test.value" />
-  <div class="testStyleLint">111</div>
+  <div class="testStyleLint">测试 vw</div>
   <van-button @click="presenter.handleClick">点击测试弹窗</van-button>
 </template>
 <script lang="ts" setup>
@@ -17,9 +17,9 @@ const { model } = presenter;
   flex-direction: column;
   align-items: center;
 
-  max-width: 100vw;
-  max-height: 100vh;
-  margin-left: 32px;
+  max-width: 100px;
+  max-height: 100px;
+  margin: 20px;
 
   white-space: nowrap;
 }
