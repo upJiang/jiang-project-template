@@ -1,0 +1,19 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# lint，检查 eslint、stylelint、ts
+yarn lint
+echo "---检查开始---"
+# yarn tsc
+echo "---检查结束---"
+
+# 邮箱的检查
+# EMAIL=$(git config user.email)
+# if [[ ! $EMAIL =~ ^[.[:alnum:]]+@qq\.com$ ]];
+# then
+#   echo "Your git information is not valid";
+#   echo "Please run:"
+#   echo '   git config --local user.name "<Your name in qq>"'
+#   echo '   git config --local user.email "<Your alias>@qq.com"'
+#   exit 1;
+# fi;
