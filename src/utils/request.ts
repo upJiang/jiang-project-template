@@ -1,10 +1,10 @@
-import { notification } from "antd";
 import type {
   AxiosError,
   AxiosRequestConfig,
   InternalAxiosRequestConfig,
 } from "axios";
 import axios from "axios";
+import { Toast } from "react-vant";
 
 import { delCookie, getCookie } from "./cookie";
 
@@ -50,10 +50,7 @@ instance.interceptors.response.use(
       !(res.config as AxiosRequestConfig & { skipErrorHandler?: boolean })
         .skipErrorHandler
     ) {
-      notification.error({
-        message: "异常",
-        description: res.data.msg || res.data.message,
-      });
+      Toast.fail(res.data.msg || res.data.message);
       return Promise.reject(res.data);
     }
     return Promise.resolve(res.data);
@@ -63,22 +60,17 @@ instance.interceptors.response.use(
       error.config as AxiosRequestConfig & { skipErrorHandler?: boolean }
     ).skipErrorHandler;
     if (error.response?.status === 401 && !skipErrorHandler) {
-      notification.error({
-        message: "登录信息过期",
-        description: "请重新登录",
-      });
+      Toast.fail("登录信息过期");
       delCookie("access_token");
       // 下面自行处理未登录情况
       return;
     }
     if (!skipErrorHandler) {
-      notification.error({
-        message: "异常",
-        description:
-          error.response?.data?.message ||
+      Toast.fail(
+        error.response?.data?.message ||
           error.response?.data?.msg ||
           error.message,
-      });
+      );
     }
     return Promise.reject(error);
   },

@@ -76,43 +76,46 @@ const router = useNavigate();
 router("/about");
 ```
 
-## 添加 ant-design
+## 配置 react-vant
 
-[官网](https://ant-design.antgroup.com/index-cn)
-
-- 下载依赖
+[文档地址](https://react-vant.3lang.dev/guide/quickstart)
 
 ```
-yarn add antd less
+yarn add react-vant
 ```
 
-- 配置 `main.tsx`，并设置中文
+## 配置移动端适配 vw,vh
+
+- 安装依赖
 
 ```
-import "./index.css";
-import "dayjs/locale/zh-cn";
+yarn add postcss-px-to-viewport -D
+```
 
-import { ConfigProvider } from "antd";
-import zhCN from "antd/locale/zh_CN";
-import dayjs from "dayjs";
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+- 配置 `postcss.config.js`
 
-dayjs.locale("zh-cn");
-
-import App from "./App.tsx";
-
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <ConfigProvider locale={zhCN}>
-        <App />
-      </ConfigProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
-);
-
+```
+module.exports = {
+  plugins: {
+    autoprefixer: {},
+    'postcss-px-to-viewport': {
+      // 视窗的宽度，对应的是我们设计稿的宽度，一般是750
+      viewportWidth: 375,
+      // 视窗的高度，根据750设备的宽度来指定，一般指定1334，也可以不配置
+      // viewportHeight: 1334,
+      // 指定`px`转换为视窗单位值的小数位数
+      unitPrecision: 5,
+      // 指定需要转换成的视窗单位，建议使用vw
+      viewportUnit: 'vw',
+      // 指定不转换为视窗单位的类，可以自定义，可以无限添加,建议定义一至两个通用的类名
+      selectorBlackList: ['.ignore'],
+      // 小于或等于`1px`不转换为视窗单位，你也可以设置为你想要的值
+      minPixelValue: 1,
+      // 允许在媒体查询中转换`px`
+      mediaQuery: false
+    }
+  }
+}
 ```
 
 ## 配置请求，封装 axios
@@ -163,6 +166,6 @@ const [person, updatePerson] = useImmer({
 
 ```
 
-目前该模板已配置：`项目规范、ant-design、react-router、axios、mobx、mock、use-immer`
+目前该模板已配置：`项目规范、vant、react-router、axios、mobx、mock、use-immer`
 
 已足以满足开发需求，后续需要什么自行添加

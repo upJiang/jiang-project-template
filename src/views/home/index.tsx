@@ -1,7 +1,7 @@
 import "./index.less";
 
-import { Button } from "antd";
 import { observer } from "mobx-react-lite";
+import { Button } from "react-vant";
 
 import { usePresenter } from "./presenter";
 import useMobxStore from "./store";
@@ -14,7 +14,7 @@ export default observer(() => {
 
   return (
     <>
-      <div>{model.test.age}</div>
+      <div className="testStyleLint">{model.test.age}</div>
       <Button onClick={presenter.handleClickChangeState}>点击修改变量</Button>
       <br />
       <Button onClick={presenter.handleToMock}>测试mock请求</Button>
