@@ -163,6 +163,6 @@ const [person, updatePerson] = useImmer({
 
 ```
 
-目前该模板已配置：`项目规范、ant-design、axios、mobx、mock、use-immer`
+目前该模板已配置：`项目规范、ant-design、react-router、axios、mobx、mock、use-immer`
 
 已足以满足开发需求，后续需要什么自行添加
