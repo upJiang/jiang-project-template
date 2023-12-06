@@ -13,9 +13,14 @@ export const usePresenter = () => {
   const handleToAbout = () => {
     router("/about");
   };
+
+  const handleToMock = () => {
+    service.mockTest();
+  };
   return {
     model,
     service,
     handleToAbout,
+    handleToMock,
   };
 };

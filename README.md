@@ -76,7 +76,7 @@ const router = useNavigate();
 router("/about");
 ```
 
-## 添加 ant design
+## 添加 ant-design
 
 [官网](https://ant-design.antgroup.com/index-cn)
 
@@ -114,3 +114,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 );
 
 ```
+
+## 配置请求，封装 axios
+
+查看方法 `src/utils/request.ts`，在这里每一个页面都至少由 `materials/blocks` 下的文件组成，包括 `api.ts`，如若需要全局的 `api.ts` 可自行创建。
+
+## 配置 mock
+
+[参考我的文章](https://juejin.cn/post/7000343511195189279)
