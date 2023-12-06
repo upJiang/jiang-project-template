@@ -122,3 +122,43 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 ## 配置 mock
 
 [参考我的文章](https://juejin.cn/post/7000343511195189279)
+
+## 添加 mobx 作为状态管理
+
+[文档地址](https://zh.mobx.js.org/installation.html)
+
+[配置文章](https://juejin.cn/post/7119037768109391908?searchId=20231206154239C96AD6FF5C29A1728C7E#heading-3)
+
+对数据共享，其实很多只需要用全局变量即可，为了更好的封装，以及持久化，也为了模块之间的更好分离，这里我选择了使用更为简单轻量的 `mobx`
+
+```
+yarn add mobx mobx-react-lite mobx-persist-store
+```
+
+使用直接看 `home` 页面中的 `store.ts`。
+
+如果需要全局创建，直接提出去即可
+
+## 使用 use-immer 替代 useState
+
+```
+yarn add immer use-immer
+```
+
+用法
+
+```
+import { useImmer as useState } from "use-immer";
+
+const [person, updatePerson] = useImmer({
+    name: "Michel",
+    age: 33
+  });
+
+  function updateName(name) {
+    updatePerson(draft => {
+      draft.name = name;
+    });
+  }
+
+```
