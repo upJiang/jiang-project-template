@@ -1,0 +1,11 @@
+/dist/*
+/public/*
+public/*
+*.js
+*.ts
+*.png
+*.jpg
+*.webp
+*.ttf
+*.woff
+
