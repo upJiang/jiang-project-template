@@ -4,6 +4,7 @@ import uviewPlus from "uview-plus";
 import { createSSRApp } from "vue";
 
 import App from "./App.vue";
+import router from "./router";
 
 export function createApp() {
   // 状态管理
@@ -15,6 +16,7 @@ export function createApp() {
 
   app.use(uviewPlus);
   app.use(store);
+  app.use(router);
 
   return {
     app,

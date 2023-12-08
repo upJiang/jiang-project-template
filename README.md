@@ -251,10 +251,169 @@ const instance = axios.create({
 
 ## 配置 mock
 
-目前好像还不生效，在找原因
+`vite-plugin-mock` 在小程序环境不适用，所以我这里是直接拦截请求，然后读取文件夹的内容，找到对应的请求 url 直接返回相应的结果。唯一的缺点就是无法在 `network` 中看到，但也能满足开发的需求。
 
-[参考我的文章](https://juejin.cn/post/7000343511195189279)
+- `/src/utils/commom.ts` 添加方法
+
+```
+// 处理 mock 直接返回 returnData
+export const handleMockDataReturn = (url: string) => {
+  if (!url) return;
+  const mockModules = import.meta.glob("/mock/**", {
+    eager: true,
+  }) as Record<string, { default: [] }>;
+  const curMock = Object.keys(mockModules).map((s) => mockModules[s].default);
+  const current = curMock
+    .flat()
+    .find((item: { url: string }) => item.url === url) as unknown as {
+    returnData: unknown;
+  };
+  return current.returnData;
+};
+```
+
+- 在 `request.ts` 中拦截
+
+```
+import { handleMockDataReturn } from "./commom";
+// 处理mock，直接返回数据
+if (error.config?.url?.includes("/mock")) {
+  const returnData = handleMockDataReturn(error.config.url || "") || "";
+  console.log("mock 数据结果：", returnData);
+  return Promise.resolve(returnData);
+}
+```
+
+- 在根目录新建 `mock` 文件夹，在此文件夹下随意新建 `xx.ts`
+
+```
+export default [
+  {
+    url: "/mock/getMockData",
+    returnData: {
+      code: 0,
+      message: "ok",
+      result: ["测试1", "测试2"],
+    },
+  },
+];
+```
+
+- 使用
+
+```
+// mock 请求示例
+export function fetchMockTest() {
+  return request<IFetchXXResult>({
+    url: `/mock/getMockData`,
+    method: "GET",
+  });
+}
+
+import { fetchMockTest } from "./api";
+await fetchMockTest();
+```
 
 ## 使用 `uniapp-router-next` 封装路由
 
 [插件地址](https://socket.dev/npm/package/uniapp-router-next)
+
+- 安装依赖
+
+```
+yarn add uniapp-router-next
+yarn add unplugin-uni-router -D
+```
+
+- 在 `vite.config.ts` 引入 `uniRouter`
+
+```
+import uniRouter from "unplugin-uni-router/vite";
+plugins: [uni(), uniRouter()],
+```
+
+- 新建 `/src/router.ts`
+
+```
+import routes from "uni-router-routes"; //由unplugin-uni-router/vite根据pages.json生成
+import { createRouter } from "uniapp-router-next";
+
+const router = createRouter({
+  routes: [
+    ...routes,
+    // 通配符，一般用于匹配不到路径跳转404页面
+    {
+      path: "*",
+      redirect: () => {
+        // 可返回{ name: '404' }，{ path: '/pages/404/404' }， '/pages/404/404'
+        return { name: "404" };
+      },
+    },
+  ],
+  //@ts-ignore
+  platform: process.env.UNI_PLATFORM,
+  h5: {},
+});
+
+// 可以查看打印信息，感觉就跟写 vue 普通项目无差
+router.beforeEach((_to, _form, next) => {
+  //   console.log(to, form, "beforeEach");
+  next(); // 这个一定要写，不要就跳转不了了哈
+});
+export default router;
+```
+
+- 在 `main.ts` 中导入
+
+```
+import router from "./router";
+app.use(router);
+```
+
+- 全局注册组件
+
+`/src/pages.json` 添加代码
+
+```
+{
+     "easycom": {
+        "custom": {
+            "router-navigate": "uniapp-router-next/components/router-navigate/router-navigate.vue"
+        }
+    }
+}
+```
+
+- 新建 `about` 区块页面，尝试跳转，页面新增依旧要写到 `/src/pages.json` 中
+
+写法跟 `vue-router` 基本一致了
+
+```
+import { useRouter } from "uniapp-router-next";
+const router = useRouter();
+
+  const handleToAbout = () => {
+    router.navigateTo({
+      path: "/pages/about/index",
+      //参数
+      query: {
+        name: "name",
+      },
+    });
+  };
+```
+
+- 组件跳转
+
+```
+<router-navigate to="/pages/about/index">go</router-navigate>
+```
+
+目前该模板支持了：
+
+- `husky、estlint、prettier、stylelint` 等规范
+- `uview-plus` 组件库，自动按需导入的，无需在页面导入直接使用
+- `pinia` 作为状态管理，`pinia-plugin-unistorage` 作为缓存处理
+- `axios` 处理请求，`uniapp-axios-adapter` 适配小程序
+- `mock` 手动处理
+- `uniapp-router-next` 封装路由，让习惯跟 `vue-router` 保持一致

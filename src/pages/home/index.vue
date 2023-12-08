@@ -2,12 +2,26 @@
   <up-button
     type="primary"
     :text="model.test.value"
-    @click="presenter.handleClick"
+    @click="presenter.handleTestPinia"
+    :customStyle="{
+      marginBottom: '10px',
+      marginTop: '10px',
+    }"
   />
-  <u-cell-group>
-    <u-cell icon="setting-fill" title="个人设置" />
-    <u-cell icon="integral-fill" title="会员等级" value="新版本" />
-  </u-cell-group>
+  <up-button
+    type="primary"
+    text="测试请求"
+    @click="presenter.handleTestMock"
+    :customStyle="{
+      marginBottom: '10px',
+    }"
+  />
+
+  <up-button
+    type="primary"
+    text="测试跳转about"
+    @click="presenter.handleToAbout"
+  />
 </template>
 <script lang="ts" setup>
 import { usePresenter } from "./presenter";

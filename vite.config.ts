@@ -1,8 +1,8 @@
 import { fileURLToPath, URL } from "node:url";
 
 import uni from "@dcloudio/vite-plugin-uni";
+import uniRouter from "unplugin-uni-router/vite";
 import { defineConfig } from "vite";
-import { viteMockServe } from "vite-plugin-mock";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -12,5 +12,5 @@ export default defineConfig({
       "#": fileURLToPath(new URL("./types", import.meta.url)),
     },
   },
-  plugins: [uni(), viteMockServe()],
+  plugins: [uni(), uniRouter()],
 });

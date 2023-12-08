@@ -1,7 +1,7 @@
 import { ref } from "vue";
 
 export const useModel = () => {
-  const test = ref("测试pinia缓存");
+  const test = ref("关于");
   return { test };
 };
 
