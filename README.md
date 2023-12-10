@@ -1,3 +1,16 @@
+目前该模板支持了：
+
+- `husky、eslint、prettier、stylelint、tsc` 等规范
+- `uview-plus` 组件库，自动按需导入的，无需在页面导入直接使用
+- `pinia` 作为状态管理，`pinia-plugin-unistorage` 作为缓存处理
+- `axios` 处理请求，`uniapp-axios-adapter` 适配小程序
+- `mock` 手动处理
+- `uniapp-router-next` 封装路由，让习惯跟 `vue-router` 保持一致
+- 使用 `vscode` 开发，拒绝 `hbuilder`，因为不熟悉
+- 使用 `ts` 开发
+
+请注意插件的版本号，某些插件版本不同可能会报错，这里都不会再让你踩坑，后续会添加一些通用组件及方法。可先[下载模板](https://github.com/upJiang/jiang-project-template/tree/uniapp-vue-vite)后，再看文章。如果觉得该模板还行，可否给仓库一个 `star` 🙏
+
 ## init 项目
 
 [官网地址](https://uniapp.dcloud.net.cn/quickstart-cli.html#install-vue-cli)
@@ -14,7 +27,7 @@ npm install -g @vue/cli
 npx degit dcloudio/uni-preset-vue#vite-ts my-vue3-project
 ```
 
-执行报错，直接去[下载模板](https://gitee.com/dcloud/uni-preset-vue/tree/vite-ts/)
+若执行报错，直接去[下载模板](https://gitee.com/dcloud/uni-preset-vue/tree/vite-ts/)
 
 ## 使用 vscode 开发
 
@@ -25,7 +38,7 @@ npx degit dcloudio/uni-preset-vue#vite-ts my-vue3-project
 
 ## 在微信开发者工具打开
 
-- 自行使用邮箱，[注册](https://open.weixin.qq.com/)一个新的小程序，保存 `appid`
+- 自行使用邮箱[注册](https://open.weixin.qq.com/)一个新的小程序，保存 `appid`
 - 在 `src/manifest.json` 中填入 `appid`
 - 修改 `package.json`，仅保留对微信小程序的支持，方便调试，今后想加其它端的自行网上查找添加
 
@@ -37,11 +50,13 @@ npx degit dcloudio/uni-preset-vue#vite-ts my-vue3-project
 },
 ```
 
-- 执行 `yarn dev:weapp`，在微信开发者工具中新建项目，导入 `dist\dev\mp-weixin`，运行即可
+- 执行 `yarn dev`，在微信开发者工具中新建项目，导入 `dist\dev\mp-weixin`，运行即可
 
 ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/13eafd42c17a432d8d74d77605083b8e~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=385&h=674&s=12666&e=png&b=fefefe)
 
 至此，初始化完成！
+
+## 添加规范
 
 ### 配置别名
 
@@ -68,11 +83,9 @@ resolve: {
 },
 ```
 
-## 添加规范
+项目规范请直接 [参考文章](https://juejin.cn/post/7051512232374435847)，过程完全一致，部分内容请使用文章中的 `vue` 对应规范。对于项目规范，**建议直接使用我文章内的插件版本号**，避免踩坑，毕竟是规范而已版本并不需要追求太高太新，适用即可。
 
-[参考文章](https://juejin.cn/post/7051512232374435847)
-
-除了上述，而外安装
+而外安装 `sass` 的支持
 
 ```
 yarn add postcss sass sass-loader -D
@@ -80,11 +93,13 @@ yarn add postcss sass sass-loader -D
 
 ## 生成区块文件
 
-- `materials/blocks`，需要提前配置该文件夹内的文件
+> 个人开发习惯，我是习惯将一个页面文件分离成多个文件，将视图、数据、方法、状态管理、api、常量等都分别抽离，这样可以极大的减少单个页面的代码长度。如果您没有这个习惯可直接忽略。下面介绍的 api、store 您可根据自己的习惯选择放到页面级别还是项目根目录区分模块级别中。
 
-- 使用我的插件自动在文件夹上生成文件，安装 `CodeToolBox` 插件,在文件夹上右键，`CodeToolBox => 创建区块`
+- 新建 `materials/blocks` 文件夹，需要提前配置该文件夹内的文件
 
-## 新建页面
+- 安装 `vscode` 插件 `CodeToolBox` 插件,选中文件夹后右键，`CodeToolBox => 创建区块`
+
+### 新建页面
 
 通过 `CodeToolBox` 生成区块文件，页面的路由需要统一在 `src/package.json` 中添加
 
@@ -93,7 +108,7 @@ yarn add postcss sass sass-loader -D
     {
       "path": "pages/home/index",
       "style": {
-        "navigationBarTitleText": "uni-app"
+        "navigationBarTitleText": "首页"
       }
     }
   ],
@@ -159,7 +174,7 @@ app.use(uviewPlus)
 @import "./uview-commom.scss";
 ```
 
-- 使用
+- 直接使用，无需导入
 
 ```
 <up-button type="primary" :text="model.test.value" />
@@ -198,6 +213,7 @@ declare module "pinia";
 - 在页面内或者多个页面外的公共的文件中去定义，然后直接导入使用，可配置缓存
 
 ```
+// store.ts
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
@@ -218,7 +234,7 @@ export const useTestStore = defineStore(
   },
 );
 
-// 使用
+// 在页面上使用
 import { useTestStore } from "./store";
 
 testPinia() {
@@ -232,10 +248,10 @@ testPinia() {
 
 - 安装依赖
 
-`uniapp-axios-adapter` 用于适配小程序，`axios` 版本锁死
+`uniapp-axios-adapter` 用于适配小程序，`axios` 版本锁死，高版本会有问题
 
 ```
-yarn add axios@0.27.0 axios-miniprogram-adapter
+yarn add axios@0.27.0 uniapp-axios-adapter
 ```
 
 - 添加 `/src/utils/request.ts`
@@ -246,12 +262,12 @@ const instance = axios.create({
   adapter: UniAdapter,
 });
 
-其它都为常规配置
+其它都为常规配置，可直接参考仓库代码
 ```
 
 ## 配置 mock
 
-`vite-plugin-mock` 在小程序环境不适用，所以我这里是直接拦截请求，然后读取文件夹的内容，找到对应的请求 url 直接返回相应的结果。唯一的缺点就是无法在 `network` 中看到，但也能满足开发的需求。
+由于 `vite-plugin-mock` 在小程序环境不适用，所以我这里是直接拦截请求，然后读取文件夹的内容，找到对应的请求 url 直接返回相应的结果。唯一的缺点就是无法在 `network` 中看到，但也能满足开发的需求。
 
 - `/src/utils/commom.ts` 添加方法
 
@@ -409,11 +425,9 @@ const router = useRouter();
 <router-navigate to="/pages/about/index">go</router-navigate>
 ```
 
-目前该模板支持了：
+至此已完成整个 `uniapp` 小程序的模板创建，也可使用我的 `cli` 下载各种模板代码，
 
-- `husky、estlint、prettier、stylelint` 等规范
-- `uview-plus` 组件库，自动按需导入的，无需在页面导入直接使用
-- `pinia` 作为状态管理，`pinia-plugin-unistorage` 作为缓存处理
-- `axios` 处理请求，`uniapp-axios-adapter` 适配小程序
-- `mock` 手动处理
-- `uniapp-router-next` 封装路由，让习惯跟 `vue-router` 保持一致
+```
+npm install -g jiang-cli
+jiang create myProject
+```
