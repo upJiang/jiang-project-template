@@ -19,6 +19,12 @@
       "style": {
         "navigationBarTitleText": "关于"
       }
+    },
+    {
+      "path": "pages/notFound/index",
+      "style": {
+        "navigationBarTitleText": "404"
+      }
     }
   ],
   "globalStyle": {

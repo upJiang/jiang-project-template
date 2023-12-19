@@ -19,7 +19,7 @@ const router = createRouter({
 });
 
 router.beforeEach((_to, _form, next) => {
-  //   console.log(to, form, "beforeEach");
+  // next("/pages/notFound/index");
   next();
 });
 export default router;
