@@ -1,4 +1,13 @@
 <template>
+  <u-icon name="photo" />
+
+  <up-form ref="uForm">
+    <up-form-item label="姓名" prop="name">
+      <template #right>
+        <up-icon name="arrow-right" />
+      </template>
+    </up-form-item>
+  </up-form>
   <up-button
     type="primary"
     :text="model.test.value"
@@ -29,6 +38,6 @@ import { usePresenter } from "./presenter";
 const presenter = usePresenter();
 const { model } = presenter;
 </script>
-<style lang="scss">
-@import url("./index.scss");
+<style lang="scss" scoped>
+@import "./index.scss";
 </style>

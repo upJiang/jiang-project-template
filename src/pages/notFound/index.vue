@@ -8,5 +8,5 @@ const presenter = usePresenter();
 const { model } = presenter;
 </script>
 <style lang="scss" scoped>
-@import url("./index.scss");
+@import "./index.scss";
 </style>
